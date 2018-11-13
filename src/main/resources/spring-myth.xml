@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
+       default-autowire="byName">
+
+    <context:component-scan base-package="com.github.myth.*"/>
+    <bean id="mythTransactionBootstrap" class="com.github.myth.core.bootstrap.MythTransactionBootstrap">
+        <property name="repositorySuffix" value="monitor-service"/>
+        <property name="serializer" value="kryo"/>
+        <property name="repositorySupport" value="db"/>
+        <property name="retryMax" value="3"/>
+        <property name="mythDbConfig">
+            <bean class="com.github.myth.common.config.MythDbConfig">
+                <property name="url"
+                          value="jdbc:mysql://localhost:3306/myth?useUnicode=true&amp;characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;useSSL=false&amp;serverTimezone=UTC"/>
+                <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </bean>
+        </property>
+    </bean>
+
+</beans>
